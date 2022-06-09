@@ -34,16 +34,18 @@ function App() {
           </div>
           <div id="right-keypad">
               <div className="button-contain-col">
-                <Key className="button" keyValue={"DEL"} />  
+                <Key className="button" keyValue={"CLR"} />  
                 <Key className="button" keyValue={"+"} />  
                 <Key className="button" keyValue={"-"} />  
                 <Key className="button" keyValue={"x"} />  
               </div>
           </div>
-   
+          
         </div>
-        <div>
-
+        <div id="bottom-row">
+            <div className="button-contain">
+              <Equals />
+            </div>
         </div>  
       </div>
 
@@ -78,6 +80,17 @@ function Key({keyValue}){
     <div className="key-button">
       <div className="key-styling">
         <p>{keyStrokeVal}</p>
+      </div>
+    </div>
+  )
+}
+
+function Equals(){
+
+  return(
+    <div className="key-button-wide">
+      <div className="key-styling-wide">
+        <p>=</p>
       </div>
     </div>
   )
