@@ -1,14 +1,24 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
+import Key from "./Key"
+import Title from "./Title";
+import CurVal from "./CurVal";
+import Equals from "./Equals";
 import './button.css';
+
 function App() {
 
+  const [currentValue, setCurrentValue] = useState("0");
+
+
+  const addValue = passedString => { 
+    setCurrentValue((currentValue.concat(passedString)));
+  }
 
   return (
     <div className="App">
       <Title/>
       <div id="calculator-container">
-
-        <CurVal />
+        <CurVal passedString={currentValue}/>
         <div id="keypad-left-right">
           <div id="left-keypad">
             <div className="button-contain">
@@ -22,7 +32,7 @@ function App() {
               <Key className="button" keyValue={4} />            
             </div>
             <div className="button-contain">
-              <Key className="button" keyValue={3} />
+              <Key className="button" keyValue={3} addValue={addValue}/>
               <Key className="button" keyValue={2} />
               <Key className="button" keyValue={1} />            
             </div>
@@ -40,7 +50,7 @@ function App() {
                 <Key className="button" keyValue={"x"} />  
               </div>
           </div>
-          
+      
         </div>
         <div id="bottom-row">
             <div className="button-contain">
@@ -48,52 +58,8 @@ function App() {
             </div>
         </div>  
       </div>
-
     </div>
   );
-}
-
-function Title(){
-  return (
-    <div className="title">
-      <h4>React Calculator</h4>
-    </div>
-  )
-}
-
-function CurVal(props){
-  const [currentValue, setCurrentValue] = useState(0);
-  
-  return (
-    <div id="top-keypad">
-      <p id="current-number">{currentValue}</p>
-    </div>
-  )
-}
-
-
-function Key({keyValue}){
-
-  const [keyStrokeVal, setKeyVal] = useState(keyValue);
-
-  return(
-    <div className="key-button">
-      <div className="key-styling">
-        <p>{keyStrokeVal}</p>
-      </div>
-    </div>
-  )
-}
-
-function Equals(){
-
-  return(
-    <div className="key-button-wide">
-      <div className="key-styling-wide">
-        <p>=</p>
-      </div>
-    </div>
-  )
 }
 
 export default App;
