@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
+
+
+body{
+    background-color: #3A4764;
+    color: #232C43;
+    font-family: 'Nanum Gothic Coding', monospace;
+}
+
+.title{
+    color: white;
+    font-size: 2em;
+    margin-left: 35vw;
+}
+
+#calculator-container{
+    width: 30vw;
+
+    margin-left: 35vw;
+    border-radius: 30px;
+}
+
+#top-keypad{
+    height: 10vh;
+    width: 100%;
+    background-color: #1b2235;
+    border-bottom: rgb(0, 0, 0) solid 4px;
+
+    border-radius: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#current-number{
+    color: white;
+    font-size: 2em;
+    margin-right: 2em;
+}
+
+#keypad-left-right{
+    padding: 1em;
+    margin-top: 2.5vh;
+    border-radius: 30px;
+    background-color: #232C43;
+    border-bottom: rgb(0, 0, 0) solid 4px;
+
+    display: flex;
+    flex-direction: row;
+}
+
+#right-keypad {
+    width: 30%;
+}
+
+#left-keypad {
+    height: 100%;
+    width: 70%;
+}
+
+.key-button {
+    width: 10vh;
+    height: 8vh;
+
+    text-align: center;
+    display: inline-flex;
+
+}
+
+.button-contain{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    padding-bottom: 1em;
+    font-size: 1.5em;
+}
+
+.button-contain-col{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    font-size: 1.5em;
+}
+
+.button-contain-col div {
+    margin-bottom: 1em;
+}
+
+
+.key-styling{
+    width: 100%;
+    border-radius: 10px;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    background-color: #EAE3CD;
+    border-bottom: rgb(0, 0, 0) solid 4px;
+}
+
+
