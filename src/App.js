@@ -8,15 +8,88 @@ import './button.css';
 function App() {
 
   const [currentValue, setCurrentValue] = useState("0");
+  const [dot, setDot] = useState(false); 
+  const [add, setAdd] = useState(false);
+  const [sub, setSub] = useState(false);
+  const [divide, setDivide] = useState(false);
+  const [times, setTimes] = useState(false);
 
+  const addValue = passedString => {
 
-  const addValue = passedString => { 
-
-    if (passedString == "CLR") {
+    if (passedString === "CLR") {
+      setDot(false);
       setCurrentValue("0");
       return;
     }
-    setCurrentValue((currentValue.concat(passedString)));
+
+    if (currentValue.toString().includes(".") && passedString === ".") {
+      return;
+    }
+
+    if (passedString === ".") {
+      setDot(true);
+      return;
+    }
+
+    if (passedString === "+") {
+      setAdd(true);
+      setSub(false);
+      setDivide(false);
+      setTimes(false);
+      return;
+    }
+
+    if (passedString === "-") {
+      setSub(true);
+      setAdd(false);
+      setDivide(false);
+      setTimes(false);
+      return;
+    }
+
+    if (passedString === "/") {
+      setDivide(true);
+      setSub(false);
+      setAdd(false);
+      setTimes(false);
+      return;
+    }
+
+    if (passedString === "x") {
+      setTimes(true);
+      setSub(false);
+      setDivide(false);
+      setAdd(false);
+      return;
+    }
+
+    if (add) {
+      let num1 = parseInt(currentValue.toString());
+      let num2 = parseInt(passedString.toString());
+      setCurrentValue(num1 + num2);
+      setAdd(false);
+      return;
+    }
+
+    if (dot && passedString !== ".") {
+      let tempSting = currentValue.toString();
+      tempSting += ".";
+      tempSting += passedString.toString();
+
+      setCurrentValue(tempSting);
+      setDot(false);
+      return;
+    }
+    
+
+    if (currentValue === "0") {
+      setCurrentValue(passedString);
+      return;    
+    }
+
+    let tempSting = currentValue.toString().concat(passedString.toString())
+    setCurrentValue(tempSting);
+    return;
   }
 
   return (
@@ -83,8 +156,16 @@ function App() {
                 keyValue={0}
                 onClick={(value) => addValue(value)}
               />
-              <Key className="button" keyValue={"."} />
-              <Key className="button" keyValue={"/"} />
+              <Key
+                className="button"
+                keyValue={"."}
+                onClick={(value) => addValue(value)}
+              />
+              <Key
+                className="button"
+                keyValue={"/"}
+                onClick={(value) => addValue(value)}
+              />
             </div>
           </div>
           <div id="right-keypad">
@@ -94,9 +175,21 @@ function App() {
                 keyValue={"CLR"}
                 onClick={(value) => addValue(value)}
               />
-              <Key className="button" keyValue={"+"} />
-              <Key className="button" keyValue={"-"} />
-              <Key className="button" keyValue={"x"} />
+              <Key
+                className="button"
+                keyValue={"+"}
+                onClick={(value) => addValue(value)}
+              />
+              <Key
+                className="button"
+                keyValue={"-"}
+                onClick={(value) => addValue(value)}
+              />
+              <Key
+                className="button"
+                keyValue={"x"}
+                onClick={(value) => addValue(value)}
+              />
             </div>
           </div>
         </div>
