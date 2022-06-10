@@ -8,6 +8,9 @@ import './button.css';
 function App() {
 
   const [currentValue, setCurrentValue] = useState("0");
+  const [secondValue, setSecondValue] = useState("0");
+  const [displayValue, setDisplayValue] = useState("0");
+
   const [dot, setDot] = useState(false); 
   const [add, setAdd] = useState(false);
   const [sub, setSub] = useState(false);
@@ -18,7 +21,13 @@ function App() {
 
     if (passedString === "CLR") {
       setDot(false);
+      setSub(false);
+      setDivide(false);
+      setTimes(false);
+      setAdd(false);
       setCurrentValue("0");
+      setDisplayValue("0");
+      setSecondValue("0");
       return;
     }
 
@@ -33,6 +42,8 @@ function App() {
 
     if (passedString === "+") {
       setAdd(true);
+      setDisplayValue("0");
+      setSecondValue("0");
       setSub(false);
       setDivide(false);
       setTimes(false);
@@ -63,40 +74,70 @@ function App() {
       return;
     }
 
-    if (add) {
-      let num1 = parseInt(currentValue.toString());
-      let num2 = parseInt(passedString.toString());
-      setCurrentValue(num1 + num2);
-      setAdd(false);
-      return;
-    }
+    if (add || sub || divide || times) {
+      
+      if (dot && passedString !== ".") {
+        let tempSting = secondValue.toString();
+        tempSting += ".";
+        tempSting += passedString.toString();
 
-    if (dot && passedString !== ".") {
-      let tempSting = currentValue.toString();
-      tempSting += ".";
-      tempSting += passedString.toString();
+        setSecondValue(tempSting);
+        setDisplayValue(tempSting);
+        setDot(false);
+        return;
+      } 
+      
+      if (secondValue == "0") {
+        setSecondValue(passedString);
+        setDisplayValue(passedString);
+        return;
+      }
 
-      setCurrentValue(tempSting);
-      setDot(false);
-      return;
-    }
-    
+      if (add && passedString == "=") {
+        let num1 = parseInt(currentValue);
+        let num2 = parseInt(secondValue);
+        let num3 = num1 + num2;
+        setCurrentValue(num3.toString());
+        setDisplayValue(num3.toString());
+        setAdd(false);
+        return;
+      }
 
-    if (currentValue === "0") {
-      setCurrentValue(passedString);
+      let tempSting = secondValue.toString().concat(passedString.toString());
+      setSecondValue(tempSting);
+      setDisplayValue(tempSting);
+      return;        
+
+    } else {
+      if (dot && passedString !== ".") {
+        let tempSting = currentValue.toString();
+        tempSting += ".";
+        tempSting += passedString.toString();
+
+        setCurrentValue(tempSting);
+        setDisplayValue(tempSting);
+        setDot(false);
+        return;
+      }
+
+      if (currentValue === "0") {
+        setCurrentValue(passedString.toString());
+        setDisplayValue(passedString.toString());
+        return;
+      }
+
+      let tempSting = currentValue.toString().concat(passedString.toString());
+      setCurrentValue(tempSting.toString());
+      setDisplayValue(tempSting.toString());
       return;    
     }
-
-    let tempSting = currentValue.toString().concat(passedString.toString())
-    setCurrentValue(tempSting);
-    return;
   }
 
   return (
     <div className="App">
       <Title />
       <div id="calculator-container">
-        <CurVal passedString={currentValue} />
+        <CurVal passedString={displayValue} />
         <div id="keypad-left-right">
           <div id="left-keypad">
             <div className="button-contain">
@@ -195,7 +236,7 @@ function App() {
         </div>
         <div id="bottom-row">
           <div className="button-contain">
-            <Equals />
+            <Equals keyValue={"="} onClick={(value) => addValue(value)} />
           </div>
         </div>
       </div>
