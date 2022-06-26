@@ -87,13 +87,13 @@ function App() {
         return;
       } 
       
-      if (secondValue == "0") {
+      if (secondValue === "0") {
         setSecondValue(passedString);
         setDisplayValue(passedString);
         return;
       }
 
-      if (add && passedString == "=") {
+      if (add && passedString === "=") {
         let num1 = parseInt(currentValue);
         let num2 = parseInt(secondValue);
         let num3 = num1 + num2;
@@ -102,6 +102,55 @@ function App() {
         setAdd(false);
         return;
       }
+
+      
+      if (sub && passedString === "=") {
+        let num1 = parseInt(currentValue);
+        let num2 = parseInt(secondValue);
+        let num3 = num1 - num2;
+        if (num3 > 0) {
+          setCurrentValue(num3.toString());
+          setDisplayValue(num3.toString());
+        } else {
+          setCurrentValue("0");
+          setDisplayValue("0");
+        }
+
+        setSub(false);
+        return;
+      }
+
+      if (divide && passedString === "=") {
+        let num1 = parseInt(currentValue);
+        let num2 = parseInt(secondValue);
+        let num3 = num1 / num2;
+        if (num3 > 0) {
+          setCurrentValue(num3.toString());
+          setDisplayValue(num3.toString());
+        } else {
+          setCurrentValue("0");
+          setDisplayValue("0");
+        }
+
+        setDivide(false);
+        return;
+      }      
+
+      if (times && passedString === "=") {
+        let num1 = parseInt(currentValue);
+        let num2 = parseInt(secondValue);
+        let num3 = num1 * num2;
+        if (num3 > 0) {
+          setCurrentValue(num3.toString());
+          setDisplayValue(num3.toString());
+        } else {
+          setCurrentValue("0");
+          setDisplayValue("0");
+        }
+
+        setTimes(false);
+        return;
+      }            
 
       let tempSting = secondValue.toString().concat(passedString.toString());
       setSecondValue(tempSting);
